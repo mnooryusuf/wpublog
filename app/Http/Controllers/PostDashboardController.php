@@ -27,7 +27,10 @@ class PostDashboardController extends Controller
      */
     public function create()
     {
-        //
+        return view('dashboard.create', [
+            'title' => 'Create New Post',
+            'post' => new Post(),
+        ]);
     }
 
     /**
