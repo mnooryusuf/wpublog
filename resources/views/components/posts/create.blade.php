@@ -5,7 +5,8 @@
 
     </div>
     <!-- Modal body -->
-    <form action="#">
+    <form action="/dashboard" method="POST">
+        @csrf
         <div class="mb-4">
             <label for="name" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Title</label>
             <input type="text" name="title" id="title"

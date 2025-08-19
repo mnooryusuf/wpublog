@@ -38,7 +38,15 @@ class PostDashboardController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        Post::create([
+            'title' => $request->title,
+            'slug' => str()->slug($request->title),
+            'body' => $request->body,
+            'category_id' => $request->category_id,
+            'author_id' => Auth::user()->id,
+        ]);
+
+        return redirect('/dashboard')->with('success', 'Post created successfully!');
     }
 
     /**

@@ -40,6 +40,10 @@ Route::get('/dashboard', [PostDashboardController::class, 'index'])
 Route::get('/dashboard/create', [PostDashboardController::class, 'create'])
     ->middleware(['auth', 'verified']);
 
+
+Route::post('/dashboard/', [PostDashboardController::class, 'store'])
+    ->middleware(['auth', 'verified']);
+
 Route::get('/dashboard/{post:slug}', [PostDashboardController::class, 'show'])
     ->middleware(['auth', 'verified']);
 
