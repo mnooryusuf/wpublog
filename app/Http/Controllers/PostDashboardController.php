@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Post;
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
@@ -83,25 +84,44 @@ class PostDashboardController extends Controller
     public function show(Post $post)
     {
         return view('dashboard.show', [
-            'post' => $post,
-            'title' => 'Post Details'
+            'post' => $post
         ]);
     }
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit(Post $post)
     {
-        //
+        return view('dashboard.edit', [
+            'post' => $post,
+            'title' => 'Edit Post'
+        ]);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, Post $post)
     {
-        //
+        //validation
+        $request->validate([
+            'title' => 'required|max:255|min:4|max:255|unique:posts,title' . $post->id,
+            'category_id' => 'required',
+            'body' => 'required'
+        ]);
+
+        //Update post
+        $post->update([
+            'title' => $request->title,
+            'author_id' => Auth::user()->id,
+            'slug' => Str::slug($request->title),
+            'body' => $request->body,
+            'category_id' => $request->category_id,
+        ]);
+
+        // redirect
+        return redirect('/dashboard')->with('success', 'Post has been updated!');
     }
 
     /**
