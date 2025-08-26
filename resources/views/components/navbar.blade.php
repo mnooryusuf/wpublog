@@ -61,9 +61,15 @@
                             <a id="user-menu-item-0" role="menuitem" href="/profile" tabindex="-1"
                                 class="block px-4 py-2 text-sm text-gray-700">Your Profile</a>
                             <a id="user-menu-item-1" role="menuitem" href="/dashboard" tabindex="-1"
-                                class="block px-4 py-2 text-sm text-gray-700">Dahboard</a>
-                            <a id="user-menu-item-2" role="menuitem" href="#" tabindex="-1"
-                                class="block px-4 py-2 text-sm text-gray-700">Sign out</a>
+                                class="block px-4 py-2 text-sm text-gray-700">Dashboard</a>
+                            <form method="POST" action="logout">
+                                @csrf
+                                <a id="user-menu-item-2" role="menuitem" href="/logout" tabindex="-1"
+                                    onclick="event.preventDefault();
+                                        this.closest('form').submit();"
+                                    class="block px-4 py-2 text-sm text-gray-700">Sign out</a>
+                            </form>
+
                         </div>
                     </div>
                 </div>
@@ -125,6 +131,8 @@
                     <form method="POST" action="logout">
                         @csrf
                         <button type="submit"
+                            onclick="event.preventDefault();
+                                        this.closest('form').submit();"
                             class="block w-full text-start rounded-md px-3 py-2 text-base font-medium text-gray-400 hover:bg-gray-700 hover:text-white cursor-pointer">Log
                             out</button>
                     </form>
