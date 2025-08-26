@@ -6,6 +6,7 @@ use App\Models\User;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 
+
 class ProfileUpdateRequest extends FormRequest
 {
     /**
@@ -22,7 +23,7 @@ class ProfileUpdateRequest extends FormRequest
                 'string',
                 'min:4',
                 'max:16',
-                'aplha_num',
+                'alpha_num',
                 'max:255',
                 Rule::unique(User::class)->ignore($this->user()->id),
             ],
@@ -34,6 +35,7 @@ class ProfileUpdateRequest extends FormRequest
                 'max:255',
                 Rule::unique(User::class)->ignore($this->user()->id),
             ],
+            'avatar' => ['nullable', 'image', 'max:1024'],
         ];
     }
 }
