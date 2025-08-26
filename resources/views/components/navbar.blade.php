@@ -29,8 +29,8 @@
                                     <span class="absolute -inset-1.5"></span>
                                     <span class="sr-only">Open user menu</span>
 
-                                    <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
-                                        alt="" class="size-8 rounded-full" />
+                                    <img src="{{ Auth::user()->avatar ? asset('storage/' . Auth::user()->avatar) : asset('img/default-avatar.png') }}"
+                                        alt="{{ Auth::user()->name }}" class="size-8 rounded-full" />
                                     <div class="text-gray-300  px-3 py-2 text-sm font-medium">
                                         {{ Auth::user()->name }}</div>
                                     <div class="ms-1 text-gray-300">
@@ -58,10 +58,10 @@
                             role="menu" tabindex="-1" aria-labelledby="user-menu-button" aria-orientation="vertical"
                             class="absolute right-0 z-10 mt-2 w-48 origin-top-right rounded-md bg-white py-1 shadow-lg ring-1 ring-black/5 focus:outline-hidden">
                             <!-- Active: "bg-gray-100 outline-hidden", Not Active: "" -->
-                            <a id="user-menu-item-0" role="menuitem" href="#" tabindex="-1"
+                            <a id="user-menu-item-0" role="menuitem" href="/profile" tabindex="-1"
                                 class="block px-4 py-2 text-sm text-gray-700">Your Profile</a>
-                            <a id="user-menu-item-1" role="menuitem" href="#" tabindex="-1"
-                                class="block px-4 py-2 text-sm text-gray-700">Settings</a>
+                            <a id="user-menu-item-1" role="menuitem" href="/dashboard" tabindex="-1"
+                                class="block px-4 py-2 text-sm text-gray-700">Dahboard</a>
                             <a id="user-menu-item-2" role="menuitem" href="#" tabindex="-1"
                                 class="block px-4 py-2 text-sm text-gray-700">Sign out</a>
                         </div>
@@ -108,7 +108,7 @@
             @if (Auth::check())
                 <div class="flex items-center px-5">
                     <div class="shrink-0">
-                        <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
+                        <img src="{{ Auth::user()->avatar ? asset('storage/' . Auth::user()->avatar) : asset('img/default-avatar.png') }}"
                             alt="{{ Auth::user()->name }}" class="size-10 rounded-full" />
                     </div>
                     <div class="ml-3">
@@ -121,7 +121,7 @@
                         class="block rounded-md px-3 py-2 text-base font-medium text-gray-400 hover:bg-gray-700 hover:text-white">Your
                         Profile</a>
                     <a href="/dashboard"
-                        class="block rounded-md px-3 py-2 text-base font-medium text-gray-400 hover:bg-gray-700 hover:text-white">Settings</a>
+                        class="block rounded-md px-3 py-2 text-base font-medium text-gray-400 hover:bg-gray-700 hover:text-white">Dashboard</a>
                     <form method="POST" action="logout">
                         @csrf
                         <button type="submit"
