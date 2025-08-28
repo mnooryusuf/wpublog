@@ -1,3 +1,7 @@
+@push('style')
+    <link href="https://cdn.jsdelivr.net/npm/quill@2.0.3/dist/quill.snow.css" rel="stylesheet" />
+@endpush
+
 <div class="max-w-4xl relative p-4 bg-white rounded-lg border dark:bg-gray-800 sm:p-5">
     <!-- Modal header -->
     <div class="flex justify-between items-center pb-4 mb-4 rounded-t border-b sm:mb-5 dark:border-gray-600">
@@ -5,7 +9,7 @@
     </div>
 
 
-    <form action="/dashboard/{{ $post->slug }}" method="POST">
+    <form action="/dashboard/{{ $post->slug }}" method="POST" id="postForm">
         @csrf
         @method('PATCH')
         <div class="mb-4">
@@ -40,10 +44,14 @@
         <div class="mb-4"><label for="body"
                 class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Body</label>
             <textarea id="body" name="body" rows="4"
-                class="@error('body')
+                class="hidden @error('body')
                  bg-red-50 border-red-500 text-red-900 placeholder-red-700 focus:ring-red-500 focus:border-red-500 dark:text-red-500 dark:placeholder-red-500 dark:border-red-500
                  @enderror block p-2.5 w-full text-sm text-gray-900  rounded-lg border border-gray-300 focus:ring-primary-500 focus:border-primary-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
                 placeholder="Write post body here">{{ old('body') ?? $post->body }}</textarea>
+
+            <!-- Create the editor container -->
+            <div id="editor">{!! old('body', $post->body) !!}</div>
+
             @error('body')
                 <p class="mt-2 text-sm text-red-600 dark:text-red-500" id="title-error">{{ $message }}</p>
             @enderror
@@ -71,3 +79,26 @@
         </a>
     </form>
 </div>
+
+@push('script')
+    <script src="https://cdn.jsdelivr.net/npm/quill@2.0.3/dist/quill.js"></script>
+
+    <script>
+        const quill = new Quill('#editor', {
+            theme: 'snow',
+            placeholder: 'Write post body here ...',
+        });
+
+        const postForm = document.getElementById('postForm');
+        const postBody = document.getElementById('body');
+        const quillEditor = document.getElementById('editor');
+
+        postForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            postBody.value = quill.root.innerHTML;
+
+            postForm.submit();
+
+        });
+    </script>
+@endpush

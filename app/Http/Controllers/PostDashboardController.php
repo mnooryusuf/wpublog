@@ -52,12 +52,13 @@ class PostDashboardController extends Controller
             [
                 'title' => 'required|max:255|unique:posts|min:4',
                 'category_id' => 'required',
-                'body' => 'required'
+                'body' => 'required|min:20'
             ],
             [
                 'title.reqired' => 'Field :attribute harus diisi!',
                 'category_id.required' => 'Pilih :attribute terlebih dahulu!',
-                'body.required' => 'Isi :attribute terlebih dahulu!'
+                'body.required' => 'Isi :attribute terlebih dahulu!',
+                'body.min' => 'Isi :attribute minimal :min karakter!',
             ],
             [
                 'title' => 'Judul',
